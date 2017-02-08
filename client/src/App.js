@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import configureStore from './store/store';
 import './App.css';
+
+const store = configureStore();
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <Provider store = {store}>
+        <div className="App">
+          <div className="App-header">
+            <img src='./images/nerd.png' className="App-logo" alt="logo" />
+            <h2>Study MOAR!</h2>
+          </div>
+            {this.props.children}
         </div>
-          {this.props.children}
-      </div>
+      </Provider>
     );
   }
 }
