@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { SEARCH_EXERCISES } from '../actions/actions';
+import { SEARCH_EXERCISES, SEARCH_QUERY } from '../actions/actions';
 
-function searchKAExercises(state = 'reactjs', action) {
+function KAExercises(state ='', action) {
   switch (action.type) {
   case SEARCH_EXERCISES:
     return action.query
@@ -10,8 +10,19 @@ function searchKAExercises(state = 'reactjs', action) {
   }
 }
 
+function searchQuery(state='', action) {
+  switch(action.type) {
+    case SEARCH_QUERY:
+      return action.query
+
+    default:
+      return state
+  }
+}
+
+// This controls the shape of the state object!
 const rootReducer = combineReducers({
-  searchKAExercises
+  query: searchQuery
 })
 
 export default rootReducer

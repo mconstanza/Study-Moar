@@ -4,8 +4,13 @@ import { createStore } from 'redux';
 import configureStore from './store/store';
 import './App.css';
 
-const store = configureStore();
 
+const initialState =
+{
+  query: ''
+}
+
+const store = configureStore(initialState);
 
 class App extends Component {
   render() {
