@@ -14,11 +14,10 @@ class Search extends Component {
     changeHandler = (event) => {
       var query = event.target.value;
       this.props.searchQuery(query);
-      console.log(this.props)
     }
 
     clickHandler = (query) => {
-      this.props.searchKAExercises(query);
+      this.props.youtubeSearch(query);
     }
 
     render() {
@@ -26,7 +25,7 @@ class Search extends Component {
         return (
             <div id="searchDiv">
                 <input id="searchBar" onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
-                <button id="searchButton" onClick={this.clickHandler}>Search</button>
+                <button id="searchButton" onClick={()=>this.clickHandler(this.props.query)}>Search</button>
             </div>
 
         )
@@ -35,13 +34,16 @@ class Search extends Component {
 
 const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({
-    searchKAExercises: actionCreators.fetchKAExercises,
+    youtubeSearch: actionCreators.youtubeSearch,
     searchQuery: actionCreators.searchQuery
   }, dispatch)
 }
 
 const mapStateToProps = function(state) {
-    return {query: state.query}
+    return {
+      query: state.query,
+      youtubeResults: state.youtubeResults
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

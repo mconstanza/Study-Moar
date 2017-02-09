@@ -7,7 +7,8 @@ import './App.css';
 
 const initialState =
 {
-  query: ''
+  query: '',
+  youtubeResults: []
 }
 
 const store = configureStore(initialState);

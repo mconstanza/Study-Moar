@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-import { SEARCH_EXERCISES, SEARCH_QUERY } from '../actions/actions';
+import { YOUTUBE_SEARCH, SEARCH_QUERY } from '../actions/actions';
 
-function KAExercises(state ='', action) {
+function youtubeSearch(state=[], action) {
+  console.log("Action:", action)
   switch (action.type) {
-  case SEARCH_EXERCISES:
-    return action.query
+  case YOUTUBE_SEARCH:
+    return action.items
   default:
     return state
   }
@@ -22,7 +23,9 @@ function searchQuery(state='', action) {
 
 // This controls the shape of the state object!
 const rootReducer = combineReducers({
+  youtubeResults: youtubeSearch,
   query: searchQuery
+
 })
 
 export default rootReducer
