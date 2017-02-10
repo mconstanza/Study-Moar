@@ -3,7 +3,7 @@ var express = require('express');
 var environment = process.env.NODE_ENV || 'development';
 
 if (environment == "development") {
-  import config from './client/src/config'
+  var config = require('./client/src/config');
 }
 var request = require('request');
 var parseString = require('xml2js').parseString;
