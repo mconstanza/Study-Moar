@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Card, Icon, Image, Modal, Embed } from 'semantic-ui-react'
 
 class Youtube extends Component {
 
@@ -6,16 +7,27 @@ class Youtube extends Component {
 
   render() {
     return (
-      <div key={this.props.id}>
-        <a target="blank" href= {this.url}>
-          <img src={this.props.thumbnail.url}/>
-          <div className='youtubeTextDiv'>
-            <p className='youtubeChannelName'>
+      <Modal closeIcon="close" trigger={
+        <Card color = 'red' key={this.props.id} className="youtubeVideo">
+            <img className="youtubeThumbnail" src={this.props.thumbnail.url}/>
+          <Card.Content>
+            <Card.Header>
               {this.props.channel}
-            </p>
-          </div>
-        </a>
-      </div>
+            </Card.Header>
+            <Card.Description>
+              {this.props.title}
+            </Card.Description>
+          </Card.Content>
+        </Card>
+      }>
+      <Modal.Content>
+        <Embed
+          id={this.props.id}
+          placeholder={this.props.thumbnail.url}
+          source='youtube'
+        />
+      </Modal.Content>
+    </Modal>
     );
   }
 }

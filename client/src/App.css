@@ -14,9 +14,44 @@
   color: white;
 }
 
+.App-header h2 {
+  margin: 0;
+}
+
 .App-intro {
   font-size: large;
 }
+
+/*===============================================================*/
+/*SEARCH*/
+/*===============================================================*/
+#searchDiv {
+  /*min-height: 70px;*/
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+/*===============================================================*/
+/*YOUTUBE*/
+/*===============================================================*/
+#YoutubeContainer {
+  display: inline-block;
+  background-color: #f1f1f1;
+}
+
+#YoutubeContainer .card {
+  display: inline-block;
+  margin: 10px 10px;
+}
+
+.youtubeVideo {
+  display: inline-block;
+  margin: 10px 10px;
+}
+
+.youtubeThumbnail{
+  max-width: 100%;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

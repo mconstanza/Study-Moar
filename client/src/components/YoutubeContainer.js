@@ -5,13 +5,14 @@ import {connect} from 'react-redux';
 
 import Youtube from './Youtube';
 
+
 class YoutubeContainer extends Component {
 
   youtubeResults = () => {
 
     const videos = this.props.youtubeResults.map((video) =>
       {
-        return <Youtube video={video} channel={video.snippet.channelTitle} id={video.id.videoId} thumbnail={video.snippet.thumbnails.high}/>
+        return <Youtube video={video} channel={video.snippet.channelTitle} title={video.snippet.title} key={video.id.videoId} id={video.id.videoId} thumbnail={video.snippet.thumbnails.high}/>
       })
       return videos
     }

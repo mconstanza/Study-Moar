@@ -3,6 +3,8 @@ import * as actionCreators from '../actions/actions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+import { Input, Button, Icon } from 'semantic-ui-react'
+
 class Search extends Component {
 
     constructor(props) {
@@ -24,8 +26,13 @@ class Search extends Component {
 
         return (
             <div id="searchDiv">
-                <input id="searchBar" onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
-                <button id="searchButton" onClick={()=>this.clickHandler(this.props.query)}>Search</button>
+                <Input focus id="searchBar" onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
+                <Button animated id="searchButton" onClick={()=>this.clickHandler(this.props.query)}>
+                  <Button.Content visible>Search</Button.Content>
+                  <Button.Content hidden>
+                    <Icon name='right arrow'/>
+                  </Button.Content>
+                </Button>
             </div>
 
         )
