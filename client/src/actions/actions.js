@@ -5,6 +5,7 @@ export const SEARCH_QUERY = 'SEARCH_QUERY';
 
 import fetch from 'isomorphic-fetch';
 import axios from 'axios';
+
 var environment = process.env.NODE_ENV || 'development';
 if (environment == "development") {
   var config = require('../config');
