@@ -5,12 +5,16 @@ export const SEARCH_QUERY = 'SEARCH_QUERY';
 
 import fetch from 'isomorphic-fetch';
 import axios from 'axios';
-import config from '../config';
+
+if (environment == "development") {
+  import config from './client/src/config'
+}
+
 
 export function youtubeSearch(query) {
 
   var baseURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=';
-  var apiKey = config.youtube.key;
+  var apiKey = YOUTUBE_KEY || config.youtube.key;
   var endURL = '&type=video&videoCategoryId=27&relevanceLanguage=en&safeSearch=strict&key=';
   var URL = baseURL + query + endURL + apiKey;
 

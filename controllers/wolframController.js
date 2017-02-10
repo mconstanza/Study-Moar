@@ -1,5 +1,11 @@
 import express from 'express';
-import config from './client/src/config'
+
+var environment = process.env.NODE_ENV || 'development';
+
+if (environment == "development") {
+  import config from './client/src/config'
+}
+
 
 
 var router = express.Router();
@@ -7,7 +13,7 @@ var router = express.Router();
 router.get('/wolfram/:query', function(req, res) {
 
     var baseURL = 'http://api.wolframalpha.com/v1/simple?appid=';
-    var apiKey = config.wolframAlpha.id;
+    var apiKey = WOLFRAM_KEY || config.wolframAlpha.id;
     var endURL = '&i='
     var URL = baseURL + apiKey + endURL + req.params.query ;
 
