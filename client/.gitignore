@@ -13,6 +13,3 @@ config.js
 .DS_Store
 .env
 npm-debug.log
-
-# config
-/config/Twitch.js
