@@ -13,6 +13,8 @@ if (environment == "development") {
 
 export function youtubeSearch(query) {
 
+  console.log('YOUTUBE KEY: ', process.env.REACT_APP_YOUTUBE_API)
+
   var baseURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=';
   var apiKey = process.env.REACT_APP_YOUTUBE_API;
   var endURL = '&type=video&videoCategoryId=27&relevanceLanguage=en&safeSearch=strict&key=';
