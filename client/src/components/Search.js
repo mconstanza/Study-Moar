@@ -21,11 +21,13 @@ class Search extends Component {
     handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       this.props.youtubeSearch(this.props.query);
+      this.props.wolframSearch(this.props.query);
     }
   }
 
     clickHandler = (query) => {
       this.props.youtubeSearch(query);
+      this.props.wolframSearch(this.props.query);
     }
 
     render() {
@@ -48,6 +50,7 @@ class Search extends Component {
 const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({
     youtubeSearch: actionCreators.youtubeSearch,
+    wolframSearch: actionCreators.wolframSearch,
     searchQuery: actionCreators.searchQuery
   }, dispatch)
 }
@@ -55,7 +58,8 @@ const mapDispatchToProps = function (dispatch) {
 const mapStateToProps = function(state) {
     return {
       query: state.query,
-      youtubeResults: state.youtubeResults
+      youtubeResults: state.youtubeResults,
+      wolframResults: state.wolframResults
     }
 }
 

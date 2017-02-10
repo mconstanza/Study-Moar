@@ -8,8 +8,7 @@ import './App.css';
 const initialState =
 {
   query: '',
-  youtubeResults: [],
-  youtubeModalShow: false
+  youtubeResults: []
 }
 
 const store = configureStore(initialState);
