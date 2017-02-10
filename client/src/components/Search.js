@@ -34,7 +34,7 @@ class Search extends Component {
 
         return (
             <div id="searchDiv">
-                <Input focus id="searchBar" onKeyPress={this.handleKeyPress} onChange={this.changeHandler} id="sInput" placeholder={process.env.REACT_APP_YOUTUBE_API || "Teach me..."} value={this.props.query}/>
+                <Input focus id="searchBar" onKeyPress={this.handleKeyPress} onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
                 <Button animated id="searchButton" onClick={()=>this.clickHandler(this.props.query)}>
                   <Button.Content visible>Search</Button.Content>
                   <Button.Content hidden>

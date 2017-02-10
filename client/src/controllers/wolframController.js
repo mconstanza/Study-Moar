@@ -15,7 +15,7 @@ var wolfram = express.Router();
 wolfram.route('/wolfram/:query').get(function(req, res) {
 
     var baseURL = 'http://api.wolframalpha.com/v2/query?input=';
-    var apiKey = process.env.REACT_APP_WOLFRAM_KEY;
+    var apiKey = process.env.REACT_APP_WOLFRAM_KEY || config.wolframAlpha.id;
     var endURL = '&appid=';
     var URL = baseURL + req.params.query + endURL + apiKey;
 
