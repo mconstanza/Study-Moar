@@ -1,5 +1,10 @@
 var express = require('express');
-var config = require('../config');
+
+var environment = process.env.NODE_ENV || 'development';
+
+if (environment == "development") {
+  import config from './client/src/config'
+}
 var request = require('request');
 var parseString = require('xml2js').parseString;
 
