@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { YOUTUBE_SEARCH, SEARCH_QUERY } from '../actions/actions';
 
+
+// changes what youtube videos are in the current search results
 function youtubeSearch(state=[], action) {
   console.log("Action:", action)
   switch (action.type) {
@@ -11,6 +13,7 @@ function youtubeSearch(state=[], action) {
   }
 }
 
+// changes the state of the current search term in the search bar
 function searchQuery(state='', action) {
   switch(action.type) {
     case SEARCH_QUERY:
@@ -25,7 +28,6 @@ function searchQuery(state='', action) {
 const rootReducer = combineReducers({
   youtubeResults: youtubeSearch,
   query: searchQuery
-
 })
 
 export default rootReducer

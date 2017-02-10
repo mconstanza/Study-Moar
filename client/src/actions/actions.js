@@ -9,7 +9,7 @@ export function youtubeSearch(query) {
 
   var baseURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=';
   var apiKey = config.youtube.key;
-  var endURL = '&type=video&videoCategoryId=27&key=';
+  var endURL = '&type=video&videoCategoryId=27&relevanceLanguage=en&safeSearch=strict&key=';
   var URL = baseURL + query + endURL + apiKey;
 
   // fetch Youtube results
