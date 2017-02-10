@@ -18,6 +18,12 @@ class Search extends Component {
       this.props.searchQuery(query);
     }
 
+    handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      this.props.youtubeSearch(this.props.query);
+    }
+  }
+
     clickHandler = (query) => {
       this.props.youtubeSearch(query);
     }
@@ -26,7 +32,7 @@ class Search extends Component {
 
         return (
             <div id="searchDiv">
-                <Input focus id="searchBar" onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
+                <Input focus id="searchBar" onKeyPress={this.handleKeyPress} onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
                 <Button animated id="searchButton" onClick={()=>this.clickHandler(this.props.query)}>
                   <Button.Content visible>Search</Button.Content>
                   <Button.Content hidden>

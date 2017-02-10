@@ -30,12 +30,19 @@
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
+#searchBar {
+  width: 300px;
+}
+
 /*===============================================================*/
 /*YOUTUBE*/
 /*===============================================================*/
 #YoutubeContainer {
   display: inline-block;
   background-color: #f1f1f1;
+  max-height: 350px;
+  overflow-y: scroll;
 }
 
 #YoutubeContainer .card {
