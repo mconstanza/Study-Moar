@@ -17,11 +17,21 @@ class YoutubeContainer extends Component {
       return videos
     }
 
+    title = () => {
+      if (this.props.youtubeResults.length > 0) {
+        return <h2 id="youtubeHeading">Youtube</h2>
+      }
+    }
+
   render() {
     return (
+      <div>
+      {this.title()}
       <div id="YoutubeContainer">
+
         {this.youtubeResults()}
       </div>
+    </div>
     );
   }
 }
