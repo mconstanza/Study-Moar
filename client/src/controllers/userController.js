@@ -24,6 +24,21 @@ var passport = require('passport');
           res.send('nuh uh uh')
         });
 
+        // =====================================
+   // GOOGLE ROUTES =======================
+   // =====================================
+   // send to google to do the authentication
+   // profile gets us their basic information including their name
+   // email gets their emails
+   router.route('/auth/google').get(passport.authenticate('google', { scope : ['profile', 'email', 'youtube'] }));
+
+   // the callback after google has authenticated the user
+   router.route('/auth/google/callback').get(
+           passport.authenticate('google', {
+                   successRedirect : '/profile',
+                   failureRedirect : '/'
+           }));
+
     // =====================================
     // LOGOUT ==============================
     // =====================================
