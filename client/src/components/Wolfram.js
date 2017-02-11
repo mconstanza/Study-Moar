@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { Card, Icon, Image, Modal, Embed } from 'semantic-ui-react'
+import { Card, Icon, Image, Modal, Embed, Item } from 'semantic-ui-react'
 
 class Wolfram extends Component {
 
   render() {
     return (
 
-        <Card key={this.props.id} color = 'orange'>
-          <img src={this.props.img}/>
-          <Card.Content>
-            <Card.Header>
-            </Card.Header>
-            <Card.Description>
+        <Item key={this.props.id} color = 'orange'>
+          <Item.Image src={this.props.img}/>
+          {/* <Item.Content>
+            <Item.Description>
               {this.props.title}
-            </Card.Description>
-          </Card.Content>
-        </Card>
+            </Item.Description>
+          </Item.Content> */}
+        </Item>
     );
   }
 }

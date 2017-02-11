@@ -86,6 +86,11 @@
   /*overflow-y: scroll;*/
 }
 
+#WolframContainer .items .item .image {
+  width: auto;
+  margin-left: 10px;
+}
+
 #wolframHeading {
   font-family: 'Source Sans Pro', sans-serif;
   color: #ff7e00; /* Wolfram Alpha Orange */
@@ -94,12 +99,6 @@
   /*transform: rotate(-90deg);*/
 
 }
-
-#WolframContainer .card {
-
-  margin: 10px 10px;
-}
-
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
