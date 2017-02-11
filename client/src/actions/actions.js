@@ -1,6 +1,7 @@
 
 export const YOUTUBE_SEARCH = 'YOUTUBE_SEARCH';
 export const WOLFRAM_SEARCH = 'WOLFRAM_SEARCH';
+export const QUIZLET_SEARCH = 'QUIZLET_SEARCH';
 export const SEARCH_QUERY = 'SEARCH_QUERY';
 
 import fetch from 'isomorphic-fetch';
@@ -35,6 +36,31 @@ export function youtubeSearch(query) {
       console.log('Fetch Error :-S', err);
     })
 }
+
+// export function quizletSearch(query) {
+//
+//   var baseURL = 'https://api.quizlet.com/2.0/search/sets?q';
+//   var apiKey = process.env.REACT_APP_YOUTUBE_API;
+//   var endURL = '&type=video&videoCategoryId=27&relevanceLanguage=en&safeSearch=strict&key=';
+//   var URL = baseURL + query + endURL + apiKey;
+//
+//   // fetch Youtube results
+//   return fetch(URL)
+//   // convert to json
+//     .then((response) => response.json())
+//     // send to reducer
+//     .then((json) => {
+//       var items = json.items
+//       // console.log(items)
+//       return {
+//         type: YOUTUBE_SEARCH, items
+//       }
+//     })
+//     // catch function errors
+//     .catch(function(err) {
+//       console.log('Fetch Error :-S', err);
+//     })
+// }
 
 
 // Wolfram Alpha Search
