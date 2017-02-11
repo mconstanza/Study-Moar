@@ -11,16 +11,25 @@ class WolframContainer extends Component {
 
     const cards = this.props.wolframResults.map((card) =>
       {
-        return <Wolfram/>
+        return <Wolfram key={card.id} img={card.subpods[0].img.src} title={card.subpods[0].img.title}/>
       })
       return cards
     }
 
+    title = () => {
+      if (this.props.wolframResults && this.props.wolframResults.length > 0) {
+        return <h2 id="wolframHeading">Wolfram Alpha</h2>
+      }
+    }
+
   render() {
     return (
-      <div id="WolframContainer">
-        {/* {this.wolframResults()} */}
-      </div>
+      <div>
+        {this.title()}
+        <div id="WolframContainer">
+          {this.wolframResults()}
+        </div>
+    </div>
     );
   }
 }

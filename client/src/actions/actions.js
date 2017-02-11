@@ -14,7 +14,7 @@ if (environment == "development") {
 export function youtubeSearch(query) {
 
   var baseURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=';
-  var apiKey = process.env.REACT_APP_YOUTUBE_API || config.youtube.key;
+  var apiKey = process.env.REACT_APP_YOUTUBE_API;
   var endURL = '&type=video&videoCategoryId=27&relevanceLanguage=en&safeSearch=strict&key=';
   var URL = baseURL + query + endURL + apiKey;
 
@@ -41,24 +41,13 @@ export function youtubeSearch(query) {
 
 export function wolframSearch(query) {
 
-  // // fetch Youtube results
-  // fetch('/wolfram/' + query)
-  // // convert to json
-  //   .then((response) => {
-  //     console.log(response)
-  //       return {
-  //         type: WOLFRAM_SEARCH, response
-  //       }
-  //   })
-  //   // catch function errors
-  //   .catch(function(err) {
-  //     console.log('Fetch Error :-S', err);
-  //   })
-
+// return the promise of a server fetch
   return axios.get('/wolfram/' + query)
+  // response is already json, so no need to convert
   .then((response) => {
     console.log(response)
-    var results = response.data.pod;
+    // Wolfram Alpha keeps relevant results in 'pods'
+    var results = response.data.queryresult.pods
     return {
       type: WOLFRAM_SEARCH, results
     }
