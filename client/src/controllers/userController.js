@@ -30,7 +30,7 @@ var passport = require('passport');
    // send to google to do the authentication
    // profile gets us their basic information including their name
    // email gets their emails
-   router.route('/auth/google').get(passport.authenticate('google', { scope : ['profile', 'email', 'youtube'] }));
+   router.route('/auth/google').get(passport.authenticate('google', { scope : ['profile', 'email', 'https://www.googleapis.com/auth/youtube'] }));
 
    // the callback after google has authenticated the user
    router.route('/auth/google/callback').get(
