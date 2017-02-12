@@ -3,16 +3,28 @@ import * as actionCreators from '../actions/actions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import { Card, Icon, Image, Modal, Embed, Item } from 'semantic-ui-react'
+import { Segment, Dimmer, Loader, Item } from 'semantic-ui-react'
 
 
 import Wolfram from './Wolfram';
 
 class WolframContainer extends Component {
 
+  loading = () => {
+    if (this.props.isFetching){
+      return (
+        <Segment>
+          <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+        </Segment>
+      )
+    }
+  }
+
   wolframResults = () => {
 
-    const items = this.props.wolframResults.map((card) =>
+    const items = this.props.results.map((card) =>
       {
         return <Wolfram key={card.id} img={card.subpods[0].img.src} title={card.subpods[0].img.title}/>
       })
@@ -20,8 +32,8 @@ class WolframContainer extends Component {
     }
 
     content = () => {
-      if (this.props.wolframResults) {
-        if (this.props.wolframResults.length > 0){
+      if (this.props.results) {
+        if (this.props.results.length > 0){
           return (
             <Item.Group divided key={this.props.id} color = 'orange'>
               {this.wolframResults()}
@@ -32,8 +44,8 @@ class WolframContainer extends Component {
     }
 
     title = () => {
-      if (this.props.wolframResults) {
-        if (this.props.wolframResults.length > 0){
+      if (this.props.results) {
+        if (this.props.results.length > 0){
           return <h2 id="wolframHeading">Wolfram Alpha</h2>
         }
       }
@@ -44,6 +56,7 @@ class WolframContainer extends Component {
       <div>
         {this.title()}
         <div id="WolframContainer">
+          {this.loading()}
           {this.content()}
         </div>
     </div>
@@ -53,7 +66,8 @@ class WolframContainer extends Component {
 
 const mapStateToProps = function(state) {
     return {
-      wolframResults: state.wolframResults
+      isFetching: state.wolfram.isFetching,
+      results: state.wolfram.results
     }
 }
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import * as actionCreators from '../actions/actions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {Divider, Segment, Loader, Image, Dimmer} from 'semantic-ui-react';
+
 
 import Youtube from './Youtube';
 
@@ -10,7 +12,7 @@ class YoutubeContainer extends Component {
 
   youtubeResults = () => {
 
-    const videos = this.props.youtubeResults.map((video) =>
+    const videos = this.props.results.map((video) =>
       {
         return <Youtube video={video} channel={video.snippet.channelTitle} title={video.snippet.title} key={video.id.videoId} id={video.id.videoId} thumbnail={video.snippet.thumbnails.high}/>
       })
@@ -18,8 +20,20 @@ class YoutubeContainer extends Component {
     }
 
     title = () => {
-      if (this.props.youtubeResults.length > 0) {
+      if (this.props.results.length > 0) {
         return <h2 id="youtubeHeading">Youtube</h2>
+      }
+    }
+
+    loading = () => {
+      if (this.props.isFetching){
+        return (
+          <Segment>
+            <Dimmer active inverted>
+              <Loader inverted>Loading</Loader>
+            </Dimmer>
+          </Segment>
+        )
       }
     }
 
@@ -28,9 +42,10 @@ class YoutubeContainer extends Component {
       <div>
       {this.title()}
       <div id="YoutubeContainer">
-
+        {this.loading()}
         {this.youtubeResults()}
       </div>
+      <Divider/>
     </div>
     );
   }
@@ -38,7 +53,8 @@ class YoutubeContainer extends Component {
 
 const mapStateToProps = function(state) {
     return {
-      youtubeResults: state.youtubeResults
+      results: state.youtube.results,
+      isFetching: state.youtube.isFetching
     }
 }
 

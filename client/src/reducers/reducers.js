@@ -1,24 +1,47 @@
 import { combineReducers } from 'redux';
-import { YOUTUBE_SEARCH, WOLFRAM_SEARCH, SEARCH_QUERY } from '../actions/actions';
+import { YOUTUBE_REQUEST, YOUTUBE_RECEIVE, WOLFRAM_REQUEST, WOLFRAM_RECEIVE, SEARCH_QUERY } from '../actions/actions';
 
 
 // changes what youtube videos are in the current search results
-function youtubeSearch(state=[], action) {
-  console.log("Action:", action)
+function youtubeSearch(state={
+  isFetching: false,
+  results: []
+},
+  action) {
   switch (action.type) {
-  case YOUTUBE_SEARCH:
-    return action.items
+  case YOUTUBE_REQUEST:
+    return Object.assign({}, state, {
+      isFetching: true,
+      results: []
+    })
+  case YOUTUBE_RECEIVE:
+  return Object.assign({}, state, {
+    isFetching: false,
+    results: action.results
+  })
   default:
     return state
   }
 }
 
 // changes what wolfram alpha results are in the current search results
-function wolframSearch(state=[], action) {
+function wolframSearch(state={
+  isFetching: false,
+  results: []
+},
+  action) {
   console.log("Action:", action)
   switch (action.type) {
-  case WOLFRAM_SEARCH:
-    return action.results
+  case WOLFRAM_REQUEST:
+    return Object.assign({}, state, {
+      isFetching: true,
+      results: []
+    })
+  case WOLFRAM_RECEIVE:
+  return Object.assign({}, state, {
+    isFetching: false,
+    results: action.results
+  })
   default:
     return state
   }
@@ -37,8 +60,8 @@ function searchQuery(state='', action) {
 
 // This controls the shape of the state object!
 const rootReducer = combineReducers({
-  youtubeResults: youtubeSearch,
-  wolframResults: wolframSearch,
+  youtube: youtubeSearch,
+  wolfram: wolframSearch,
   query: searchQuery
 })
 
