@@ -8,11 +8,6 @@ class Wolfram extends Component {
 
         <Item key={this.props.id} color = 'orange'>
           <Item.Image src={this.props.img}/>
-          {/* <Item.Content>
-            <Item.Description>
-              {this.props.title}
-            </Item.Description>
-          </Item.Content> */}
         </Item>
     );
   }

@@ -57,9 +57,7 @@ const mapDispatchToProps = function (dispatch) {
 
 const mapStateToProps = function(state) {
     return {
-      query: state.query,
-      youtubeResults: state.youtubeResults,
-      wolframResults: state.wolframResults
+      query: state.query
     }
 }
 

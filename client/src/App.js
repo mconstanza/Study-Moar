@@ -10,8 +10,8 @@ import './App.css';
 const initialState =
 {
   query: '',
-  youtubeResults: [],
-  wolframResults: []
+  youtube: {isFetching: false, results: []},
+  wolfram: {isFetching: false, results: []}
 }
 
 const store = configureStore(initialState);
