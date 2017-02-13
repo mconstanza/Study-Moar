@@ -54,7 +54,7 @@
 }
 
 #searchBar {
-  width: 300px;
+ 
 }
 
 /*===============================================================*/
@@ -132,7 +132,6 @@
 #Footer {
   min-height: 150px;
   background-color: #3b7fb9;
-  font-size: 20px;
 }
 #portfolioLink {
   color: white;
