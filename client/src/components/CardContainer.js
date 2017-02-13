@@ -24,7 +24,7 @@ class CardContainer extends Component {
         return (
             <div id="CardContainer">
               <Menu tabular>
-                <Menu.Item id="youtubeTab" color='youtube' name='Youtube' active={this.props.activeItem === 'Youtube'} onClick={this.handleItemClick}>
+                <Menu.Item id="youtubeTab" color='red' name='Youtube' active={this.props.activeItem === 'Youtube'} onClick={this.handleItemClick}>
                   <Icon color='youtube' name='youtube' />
                   Youtube
                 </Menu.Item>

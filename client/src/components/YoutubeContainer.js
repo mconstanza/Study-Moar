@@ -23,19 +23,17 @@ class YoutubeContainer extends Component {
       if (this.props.results.length > 0) {
         return <h2 id="youtubeHeading">Youtube</h2>
       }
-      else {
-        return <Header size='huge'>Use the search above to start studying!</Header>
-      }
+      // else {
+      //   return <Header size='huge'>Use the search above to start studying!</Header>
+      // }
     }
 
     loading = () => {
       if (this.props.isFetching){
         return (
-          <Segment>
-            <Dimmer active inverted>
-              <Loader inverted>Loading</Loader>
-            </Dimmer>
-          </Segment>
+
+              <Loader active inline='centered'>Loading</Loader>
+
         )
       }
     }
