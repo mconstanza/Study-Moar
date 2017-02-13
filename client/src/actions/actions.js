@@ -5,6 +5,7 @@ export const WOLFRAM_RECEIVE = 'WOLFRAM_RECEIVE';
 export const QUIZLET_REQUEST = 'QUIZLET_REQUEST';
 export const QUIZLET_RECEIVE = 'QUIZLET_RECEIVE';
 export const SEARCH_QUERY = 'SEARCH_QUERY';
+export const ACTIVE_TAB = 'ACTIVE_TAB';
 
 import fetch from 'isomorphic-fetch';
 import axios from 'axios';
@@ -12,6 +13,10 @@ import axios from 'axios';
 var environment = process.env.NODE_ENV || 'development';
 if (environment == "development") {
     var config = require('../config');
+}
+
+export function activeTab(tab) {
+  return {type: ACTIVE_TAB, tab}
 }
 
 // this action will tell the state to show loading screens for each api call
@@ -112,6 +117,9 @@ export function wolframSearch(query) {
             .then((response) => {
             // Wolfram Alpha keeps relevant results in 'pods'
             var results = response.data.queryresult.pods
+            if (results == undefined){
+              results = []  
+            }
             dispatch(receive('wolfram', results))
         }).catch((error) => {
             console.log(error);

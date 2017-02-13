@@ -38,7 +38,7 @@ class Search extends Component {
                 <Button animated id="searchButton" onClick={()=>this.clickHandler(this.props.query)}>
                   <Button.Content visible>Search</Button.Content>
                   <Button.Content hidden>
-                    <Icon name='right arrow'/>
+                    <Icon name='search'/>
                   </Button.Content>
                 </Button>
             </div>

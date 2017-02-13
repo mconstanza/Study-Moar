@@ -3,7 +3,7 @@ import * as actionCreators from '../actions/actions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import { Segment, Dimmer, Loader, Item } from 'semantic-ui-react'
+import { Segment, Dimmer, Loader, Item, Header } from 'semantic-ui-react'
 
 
 import Wolfram from './Wolfram';
@@ -44,10 +44,12 @@ class WolframContainer extends Component {
     }
 
     title = () => {
-      if (this.props.results) {
-        if (this.props.results.length > 0){
-          return <h2 id="wolframHeading">Wolfram Alpha</h2>
+
+      if (this.props.results.length > 0){
+        return <h2 id="wolframHeading">Wolfram Alpha</h2>
         }
+      else {
+        return <Header size='huge'>Use the search above to start studying!</Header>
       }
     }
 
