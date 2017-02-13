@@ -9,7 +9,7 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #3b7fb9;
   height: 150px;
   padding: 20px;
   color: white;
@@ -17,19 +17,40 @@
 
 .App-header h2 {
   margin: 0;
+
 }
 
 .App-intro {
   font-size: large;
 }
 
+#Header {
+  background-color: #3b7fb9;
+  color: white;
+
+}
+
+#Header h2 {
+  font-family: 'Barrio', cursive;
+  margin-left: 20px;
+}
+/*===============================================================*/
+/*CONTAINER*/
+/*===============================================================*/
+#content {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+
 /*===============================================================*/
 /*SEARCH*/
 /*===============================================================*/
 #searchDiv {
   /*min-height: 70px;*/
-  margin-top: 50px;
-  margin-bottom: 50px;
+  /*margin-top: 50px;
+  margin-bottom: 50px;*/
 }
 
 #searchBar {
@@ -45,8 +66,12 @@
   justify-content: center;
   -ms-align-items: center;
   align-items: center;
-  max-height: 350px;
-  overflow-y: scroll;
+  /*max-height: 350px;
+  overflow-y: scroll;*/
+}
+
+#youtubeTab {
+  color: #cc181e;
 }
 
 #youtubeHeading {
@@ -100,7 +125,24 @@
 
 }
 
-@keyframes App-logo-spin {
+/*===============================================================*/
+/*FOOTER*/
+/*===============================================================*/
+
+#Footer {
+  min-height: 150px;
+  background-color: #3b7fb9;
+  font-size: 20px;
+}
+#portfolioLink {
+  color: white;
+}
+
+#portfolioLink:hover {
+  color: black;
+}
+
+/*@keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
+}*/

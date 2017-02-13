@@ -7,6 +7,7 @@ import configureStore from './store/store';
 import './App.css';
 
 
+
 const initialState =
 {
   query: '',
@@ -21,10 +22,6 @@ class App extends Component {
     return (
       <Provider store = {store}>
         <div className="App">
-          <div className="App-header">
-            <img src='./images/nerd.png' className="App-logo" alt="logo" />
-            <h2>Study MOAR!</h2>
-          </div>
             {this.props.children}
         </div>
       </Provider>

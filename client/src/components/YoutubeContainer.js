@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as actionCreators from '../actions/actions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Divider, Segment, Loader, Image, Dimmer} from 'semantic-ui-react';
+import {Divider, Segment, Loader, Image, Dimmer, Header} from 'semantic-ui-react';
 
 
 import Youtube from './Youtube';
@@ -22,6 +22,9 @@ class YoutubeContainer extends Component {
     title = () => {
       if (this.props.results.length > 0) {
         return <h2 id="youtubeHeading">Youtube</h2>
+      }
+      else {
+        return <Header size='huge'>Use the search above to start studying!</Header>
       }
     }
 
@@ -45,7 +48,6 @@ class YoutubeContainer extends Component {
         {this.loading()}
         {this.youtubeResults()}
       </div>
-      <Divider/>
     </div>
     );
   }
