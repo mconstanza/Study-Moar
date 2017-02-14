@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { YOUTUBE_REQUEST, YOUTUBE_RECEIVE, WOLFRAM_REQUEST, WOLFRAM_RECEIVE, SEARCH_QUERY, ACTIVE_TAB } from '../actions/actions';
+import { YOUTUBE_REQUEST, YOUTUBE_RECEIVE, WOLFRAM_REQUEST, WOLFRAM_RECEIVE, QUIZLET_REQUEST, QUIZLET_RECEIVE, SEARCH_QUERY, ACTIVE_TAB } from '../actions/actions';
 
 
 function activeTab(state='Youtube', action) {
@@ -24,6 +24,28 @@ function youtubeSearch(state={
         results: []
       })
     case YOUTUBE_RECEIVE:
+    return Object.assign({}, state, {
+      isFetching: false,
+      results: action.results
+    })
+    default:
+      return state
+    }
+}
+
+// changes what quizlet sets are in the current search results
+function quizletSearch(state={
+  isFetching: false,
+  results: []
+},
+  action) {
+  switch (action.type) {
+    case QUIZLET_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true,
+        results: []
+      })
+    case QUIZLET_RECEIVE:
     return Object.assign({}, state, {
       isFetching: false,
       results: action.results
@@ -71,6 +93,7 @@ function searchQuery(state='', action) {
 const rootReducer = combineReducers({
   youtube: youtubeSearch,
   wolfram: wolframSearch,
+  quizlet: quizletSearch,
   query: searchQuery,
   activeTab: activeTab
 })

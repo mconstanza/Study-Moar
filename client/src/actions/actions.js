@@ -16,7 +16,7 @@ if (environment == "development") {
 }
 
 export function activeTab(tab) {
-  return {type: ACTIVE_TAB, tab}
+    return {type: ACTIVE_TAB, tab}
 }
 
 // this action will tell the state to show loading screens for each api call
@@ -52,7 +52,6 @@ function receive(API, results) {
 
 }
 
-
 // CONTROLS YOUTUBE API CALLS
 export function youtubeSearch(query) {
 
@@ -80,53 +79,81 @@ export function youtubeSearch(query) {
     }
 }
 
-// export function quizletSearch(query) {
-//
-//   var baseURL = 'https://api.quizlet.com/2.0/search/sets?q';
-//   var apiKey = process.env.REACT_APP_YOUTUBE_API;
-//   var endURL = '&type=video&videoCategoryId=27&relevanceLanguage=en&safeSearch=strict&key=';
-//   var URL = baseURL + query + endURL + apiKey;
-//
-//   // fetch Youtube results
-//   return fetch(URL)
-//   // convert to json
-//     .then((response) => response.json())
-//     // send to reducer
-//     .then((json) => {
-//       var items = json.items
-//       // console.log(items)
-//       return {
-//         type: YOUTUBE_SEARCH, items
-//       }
-//     })
-//     // catch function errors
-//     .catch(function(err) {
-//       console.log('Fetch Error :-S', err);
-//     })
-// }
-
-// Wolfram Alpha Search
-
-export function wolframSearch(query) {
+export function quizletSearch(query) {
 
     return dispatch => {
-        dispatch(request('wolfram'))
+        dispatch(request('quizlet'))
         // return the promise of a server fetch
-        return axios.get('/wolfram/' + query)
+        return axios.get('/quizlet/' + query)
         // response is already json, so no need to convert
             .then((response) => {
-            // Wolfram Alpha keeps relevant results in 'pods'
-            var results = response.data.queryresult.pods
-            if (results == undefined){
-              results = []  
+            var data = response.data.sets
+            if (data == undefined) {
+                data = []
             }
-            dispatch(receive('wolfram', results))
+            // console.log("Quizlet:", data)
+
+            var setIds = data.map((set) => {
+              return set.id
+            })
+
+            // console.log("/nSetIds:", setIds)
+
+            quizletSetData(setIds)
+            .then((response) => {
+              var results = response.data;
+              dispatch(receive('quizlet', results))
+            })
+
+
         }).catch((error) => {
             console.log(error);
         })
     }
 }
 
+function quizletSetData(setIds) {
+
+    var idString ='';
+
+    for (var i =0; i < setIds.length; i++) {
+      if(i < setIds.length -1){
+        idString += setIds[i] + ','
+      }
+      else{
+        idString += setIds[i]
+      }
+
+    }
+    // console.log("/nIDSTRING:",idString)
+
+    return axios.get('/quizlet/sets/' + idString).then((response) => {
+        return response
+    })
+}
+
+// Wolfram Alpha Search
+
+export function wolframSearch(query) {
+
+return dispatch => {
+    dispatch(request('wolfram'))
+    // return the promise of a server fetch
+    return axios.get('/wolfram/' + query)
+    // response is already json, so no need to convert
+        .then((response) => {
+        // Wolfram Alpha keeps relevant results in 'pods'
+        var results = response.data.queryresult.pods
+        if (results == undefined) {
+            results = []
+        }
+        dispatch(receive('wolfram', results))
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+}
+
 export function searchQuery(query) {
-    return {type: SEARCH_QUERY, query}
+return {type: SEARCH_QUERY, query}
 }

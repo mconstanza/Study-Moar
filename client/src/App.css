@@ -54,7 +54,7 @@
 }
 
 #searchBar {
- 
+
 }
 
 /*===============================================================*/
@@ -111,6 +111,10 @@
   /*overflow-y: scroll;*/
 }
 
+#wolframTab {
+  color: orange;
+}
+
 #WolframContainer .items .item .image {
   width: auto;
   margin-left: 10px;
@@ -123,6 +127,38 @@
   /*-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
   /*transform: rotate(-90deg);*/
 
+}
+
+/*===============================================================*/
+/*Quizlet*/
+/*===============================================================*/
+#QuizletContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  -ms-align-items: center;
+  align-items: center;
+  display:inline-block;
+}
+
+#quizletHeading {
+  color: #3795d9;
+}
+
+#quizletTab {
+  color: #3795d9;
+}
+
+#QuizletContainer .card {
+  display:inline-block;
+  margin: 20px 25px;
+  width: auto;
+  text-align: left;
+  max-width: 600px;
+}
+
+#QuizletContainer .card .header {
+  color: #3795d9;
 }
 
 /*===============================================================*/

@@ -5,6 +5,8 @@ var PORT = process.env.PORT || 3001;
 
 var request = require('request');
 var wolfram = require('./client/src/controllers/wolframController');
+var quizlet = require('./client/src/controllers/quizletController');
+
 var user = require('./client/src/controllers/userController');
 
 var bodyParser = require("body-parser");
@@ -40,9 +42,11 @@ app.use(passport.session()); // persistent login sessions
 // ROUTES
 // ===================================================================
 
-app.use('/', wolfram)
+app.use('/wolfram', wolfram);
 
-app.use('/', user)
+app.use('/quizlet', quizlet);
+
+app.use('/user', user);
 
 app.get('/', function(req, res) {
 	res.sendFile('index.html');
