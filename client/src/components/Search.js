@@ -22,12 +22,15 @@ class Search extends Component {
     if (event.key === 'Enter') {
       this.props.youtubeSearch(this.props.query);
       this.props.wolframSearch(this.props.query);
+      this.props.quizletSearch(this.props.query);
     }
   }
 
     clickHandler = (query) => {
       this.props.youtubeSearch(query);
       this.props.wolframSearch(this.props.query);
+      this.props.quizletSearch(this.props.query);
+
     }
 
     render() {
@@ -51,6 +54,7 @@ const mapDispatchToProps = function (dispatch) {
   return bindActionCreators({
     youtubeSearch: actionCreators.youtubeSearch,
     wolframSearch: actionCreators.wolframSearch,
+    quizletSearch: actionCreators.quizletSearch,
     searchQuery: actionCreators.searchQuery
   }, dispatch)
 }

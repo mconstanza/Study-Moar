@@ -16,7 +16,7 @@ class Footer extends Component {
                 <Button circular color='linkedin' icon='linkedin' />
               </a>
               <a target="blank" href="https://github.com/mconstanza/Study-Moar">
-                <Button circular color='white' icon='github' />
+                <Button circular icon='github' />
               </a>
               <a href="mailto:michael.constanza@gmail.com?Subject=I%20Saw%20You%20@%20Demo%20Day">
                 <Button circular color='black' icon='mail' />

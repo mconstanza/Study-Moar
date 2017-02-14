@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import YoutubeContainer from './YoutubeContainer';
 import WolframContainer from './WolframContainer';
+import QuizletContainer from './QuizletContainer';
 
 import { Menu, Icon } from 'semantic-ui-react'
 
@@ -18,6 +19,9 @@ class CardContainer extends Component {
       else if (this.props.activeItem == 'Wolfram Alpha'){
         return <WolframContainer/>
       }
+      else if (this.props.activeItem == 'Quizlet'){
+        return <QuizletContainer/>
+      }
     }
 
     render() {
@@ -25,10 +29,11 @@ class CardContainer extends Component {
             <div id="CardContainer">
               <Menu tabular>
                 <Menu.Item id="youtubeTab" color='red' name='Youtube' active={this.props.activeItem === 'Youtube'} onClick={this.handleItemClick}>
-                  <Icon color='youtube' name='youtube' />
+                  <Icon color='red' name='youtube' />
                   Youtube
                 </Menu.Item>
-                <Menu.Item color='orange' name='Wolfram Alpha' active={this.props.activeItem === 'Wolfram Alpha'} onClick={this.handleItemClick} />
+                <Menu.Item id="wolframTab" color='orange' name='Wolfram Alpha' active={this.props.activeItem === 'Wolfram Alpha'} onClick={this.handleItemClick} />
+                <Menu.Item id="quizletTab" color='blue' name='Quizlet' active={this.props.activeItem === 'Quizlet'} onClick={this.handleItemClick} />
               </Menu>
               {this.displayActive()}
             </div>
