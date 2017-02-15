@@ -23,7 +23,8 @@ const initialState =
   youtube: {isFetching: false, results: []},
   wolfram: {isFetching: false, results: []},
   user: false,
-  isLoggedIn: false
+  isLoggedIn: false,
+  history: []
 }
 
 const store = configureStore(initialState);

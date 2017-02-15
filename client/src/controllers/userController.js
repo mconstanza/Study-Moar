@@ -26,12 +26,14 @@ router.route('/:id/history')
   console.log('params:', req.params)
   User.findByIdAndUpdate(
     {'_id': req.params.id},
-    {$push: {"history": {query: req.body.query, date: Date.now()}}},
+    {$push: {"history": {query: req.body.query, date: req.body.date}}},
     {safe: true, upsert: true},
     function(err, user) {
       if (err){
         return console.error(err);
       }
+      console.log('\nuser after post:', user)
+      res.send(user)
     }
   )
 })

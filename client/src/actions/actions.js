@@ -7,6 +7,8 @@ export const QUIZLET_RECEIVE = 'QUIZLET_RECEIVE';
 export const SEARCH_QUERY = 'SEARCH_QUERY';
 export const ACTIVE_TAB = 'ACTIVE_TAB';
 export const SET_USER = 'SET_USER';
+export const SET_HISTORY = 'SET_HISTORY';
+export const ADD_HISTORY = 'ADD_HISTORY';
 export const LOGGED_IN = 'LOGGED_IN';
 export const NO_USER = 'NO_USER';
 
@@ -47,7 +49,9 @@ export function logIn(email, password) {
     }).then((response) => {
         if (response.data.user) {
           var user = response.data.user
+          var history = response.data.user.history
             dispatch({type: SET_USER, user, isLoggedIn: true })
+            dispatch({type: SET_HISTORY, history})
         }
         else{
           console.log(response.data.info)
@@ -56,28 +60,35 @@ export function logIn(email, password) {
         console.log(error)
     })
   }
-
-}
-
-export function postSearchToHistory(query, user) {
-
-      if (user) {
-          axios.post('/user/' + user._id + '/history', {query: query})
-          .then((response) => {
-              console.log(response)
-              return {type: NO_USER}
-          }).catch((error) => {
-              console.log(error)
-          })
-
-      }else {
-          return {type: NO_USER}
-    }
-
 }
 
 function setUser(user) {
     return {type: SET_USER, user}
+}
+
+function setHistory(user, history) {
+  return {type: SET_HISTORY, history}
+}
+
+function addToHistory(user, entry) {
+  return {type: ADD_HISTORY, entry}
+}
+
+export function postSearchToHistory(user, query) {
+
+    if (user) {
+      return dispatch => {
+        var entry = {query: query, date: Date.now()}
+        dispatch(addToHistory(user, entry))
+        return axios.post('/user/' + user._id + '/history', entry)
+        .then((response) => {
+          console.log(response)
+
+        }).catch((error) => {
+            console.log(error)
+        })
+      }
+    }
 }
 
 // this action removes loading screens and sets results to state

@@ -24,7 +24,10 @@ class Search extends Component {
       this.props.youtubeSearch(this.props.query);
       this.props.wolframSearch(this.props.query);
       this.props.quizletSearch(this.props.query);
-      this.postSearchToHistory();
+      if(this.props.user && this.props.isLoggedIn){
+        this.props.postSearchToHistory(this.props.user, this.props.query);
+      }
+
     }
   }
 
@@ -32,7 +35,9 @@ class Search extends Component {
       this.props.youtubeSearch(this.props.query);
       this.props.wolframSearch(this.props.query);
       this.props.quizletSearch(this.props.query);
-      this.postSearchToHistory();
+      if(this.props.user && this.props.isLoggedIn){
+        this.props.postSearchToHistory(this.props.user, this.props.query);
+      }
     }
 
     postSearchToHistory = () => {
@@ -78,7 +83,8 @@ const mapDispatchToProps = function (dispatch) {
 const mapStateToProps = function(state) {
     return {
       query: state.query,
-      user: state.user
+      user: state.user,
+      isLoggedIn: state.isLoggedIn
     }
 }
 

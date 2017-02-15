@@ -44,6 +44,26 @@
 }
 
 /*===============================================================*/
+/*HISTORY FEED*/
+/*===============================================================*/
+#historyFeed {
+  max-width: 500px;
+}
+
+#historyFeed .segment {
+  text-align: left;
+}
+
+.historyQuery {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.historyFeedDate {
+  color: #74837c;
+}
+
+/*===============================================================*/
 /*LOGIN*/
 /*===============================================================*/
 
@@ -72,6 +92,14 @@
 
 #homeTab {
   color: #39c259;
+}
+
+#HomeTabContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
 }
 
 /*===============================================================*/
