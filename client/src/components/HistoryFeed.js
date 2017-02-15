@@ -12,7 +12,7 @@ class HistoryFeed extends Component {
       // reverse the array so newest events are presented up top
       const events = this.props.history.slice(this.props.history.length -9 || 0, this.props.history.length).reverse().map((event) => {
         return (
-          <Segment compact key={event._id}>
+          <Segment color='green' textAlign='left' compact key={event._id}>
             <Feed.Event key={event._id +'feed'}>
               <Feed.Content>
                 <Feed.Summary>
@@ -31,15 +31,16 @@ class HistoryFeed extends Component {
   render() {
     return (
 
-
-        <Segment color='green' id="historyFeed">
-          <Header attached='top'>Search History</Header>
-          <Segment.Group>
+      <Segment.Group id="HistoryFeed">
+        <Segment color='green'>
+          <Header>Search History</Header>
+          {/* <Segment.Group> */}
             <Feed size='small'>
               {this.feedEvents()}
             </Feed>
-          </Segment.Group>
+          {/* </Segment.Group> */}
         </Segment>
+      </Segment.Group>
     )
   }
 }

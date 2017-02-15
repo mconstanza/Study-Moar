@@ -6,6 +6,7 @@ import {Loader, Image, Container} from 'semantic-ui-react';
 
 import Login from './Login';
 import HistoryFeed from './HistoryFeed';
+import DemoDayIntro from './DemoDayIntro';
 
 
 class HomeTab extends Component {
@@ -25,6 +26,7 @@ class HomeTab extends Component {
   render() {
     return (
       <div id="HomeTabContainer">
+        <DemoDayIntro/>
         {this.showLoginForm()}
         {this.showHistoryFeed()}
       </div>

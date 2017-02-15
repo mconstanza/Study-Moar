@@ -1,6 +1,7 @@
 
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-logo {
@@ -54,6 +55,10 @@
   text-align: left;
 }
 
+#HistoryFeed{
+  /*margin-left: 50px;*/
+}
+
 .historyQuery {
   font-weight: bold;
   font-style: italic;
@@ -64,27 +69,8 @@
 }
 
 /*===============================================================*/
-/*LOGIN*/
-/*===============================================================*/
-
-.loginFormDiv {
-  max-width: 40%;
-  text-align: center;
-}
-
-
-/*===============================================================*/
 /*SEARCH*/
 /*===============================================================*/
-#searchDiv {
-  /*min-height: 70px;*/
-  /*margin-top: 50px;
-  margin-bottom: 50px;*/
-}
-
-#searchBar {
-
-}
 
 /*===============================================================*/
 /*HOME*/
@@ -96,10 +82,41 @@
 
 #HomeTabContainer {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: center;;
   -ms-align-items: center;
   align-items: center;
+}
+
+#HomeTabContainer .segments .segment{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#DemoDayIntro {
+  min-width: 200px;
+  max-width: 500px;
+  margin-right: 50px;
+  align-self: flex-start;
+}
+
+#DemoDayIntro p {
+  text-align: left;
+}
+
+#DemoDayIntro .item {
+  text-align: left;
+}
+
+/*===============================================================*/
+/*LOGIN*/
+/*===============================================================*/
+
+.loginFormDiv {
+  max-width: 50%;
+  text-align: center;
+  align-self: center;
+
 }
 
 /*===============================================================*/
