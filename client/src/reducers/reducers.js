@@ -88,6 +88,19 @@ function searchQuery(state='', action) {
   }
 }
 
+// DEV ONLY!!!!!=================================
+var testUser = {
+  "_id": {
+       "$oid": "589f9ac03403a730109ac615"
+   },
+   "local": {
+       "password": "$2a$08$0Qgl3ktQY1XUHzgbKpnewe4IKI8QeeZZQH3mzOJIFf4Vn6KEukrMy",
+       "email": "michael.constanza@gmail.com"
+     },
+     history: [{query: "spongebob", date: Date.now()}]
+}
+//============================================
+
 function setUser(state=false, action) {
   switch(action.type) {
     case SET_USER:
@@ -99,7 +112,7 @@ function setUser(state=false, action) {
 
 function isLoggedIn(state=false, action) {
   switch(action.type) {
-    case LOGGED_IN:
+    case SET_USER:
       return action.isLoggedIn
     default:
       return state

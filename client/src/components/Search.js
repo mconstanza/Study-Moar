@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as actionCreators from '../actions/actions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import axios from 'axios';
 
 import { Input, Button, Icon } from 'semantic-ui-react'
 
@@ -23,7 +24,7 @@ class Search extends Component {
       this.props.youtubeSearch(this.props.query);
       this.props.wolframSearch(this.props.query);
       this.props.quizletSearch(this.props.query);
-      this.props.postSearchToHistory(this.props.user);
+      this.postSearchToHistory();
     }
   }
 
@@ -31,7 +32,19 @@ class Search extends Component {
       this.props.youtubeSearch(this.props.query);
       this.props.wolframSearch(this.props.query);
       this.props.quizletSearch(this.props.query);
-      this.props.postSearchToHistory(this.props.query, this.props.user);
+      this.postSearchToHistory();
+    }
+
+    postSearchToHistory = () => {
+
+        if (this.props.user) {
+            axios.post('/user/' + this.props.user._id + '/history', {query: this.props.query})
+            .then((response) => {
+                console.log(response)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
     }
 
     render() {
@@ -39,7 +52,7 @@ class Search extends Component {
         return (
             <div id="searchDiv">
                 <Input focus id="searchBar" onKeyPress={this.handleKeyPress} onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
-                <Button animated id="searchButton" onClick={()=>this.clickHandler}>
+                <Button animated id="searchButton" onClick={this.clickHandler}>
                   <Button.Content visible>Search</Button.Content>
                   <Button.Content hidden>
                     <Icon name='search'/>

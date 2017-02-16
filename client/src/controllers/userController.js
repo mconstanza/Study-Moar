@@ -14,7 +14,7 @@ router.route('/:id/history')
 .get(function(req, res){
   User.findOne({'_id': req.params.id}, function(err, user) {
     if (err){
-      return console.error(user);
+      return console.error(err);
     }
     if (user) {
       res.send(user.history)
@@ -22,15 +22,18 @@ router.route('/:id/history')
   })
 })
 .post(function(req, res){
-  console.log(req.body);
-  User.findOne({'_id': req.params.id}, function(err, user) {
-    if (err){
-      return console.error(user);
+  console.log("posting history:",req.body);
+  console.log('params:', req.params)
+  User.findByIdAndUpdate(
+    {'_id': req.params.id},
+    {$push: {"history": {query: req.body.query, date: Date.now()}}},
+    {safe: true, upsert: true},
+    function(err, user) {
+      if (err){
+        return console.error(err);
+      }
     }
-    if (user) {
-      user.history.push({query: req.body.query, date: Date.now()})
-    }
-  })
+  )
 })
 
 module.exports = router;

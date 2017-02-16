@@ -23,7 +23,7 @@ class CardContainer extends Component {
         return <QuizletContainer/>
       }
       else if (this.props.activeItem == 'Home'){
-        return <HomeTab/>
+        return <HomeTab user={this.props.user} history={this.props.user.history}/>
       }
     }
 
@@ -74,7 +74,8 @@ const mapStateToProps = function(state) {
       activeItem: state.activeTab,
       youtubeResults: state.youtube.results,
       wolframResults: state.wolfram.results,
-      quizletResults: state.quizlet.results
+      quizletResults: state.quizlet.results,
+      user: state.user
     }
 }
 

@@ -38,38 +38,42 @@ function request(API) {
 
 }
 
-function logIn(email, password) {
-    axios.post('/login', {
+export function logIn(email, password) {
+  console.log('\n',email, password)
+  return dispatch => {
+    return axios.post('/login', {
         email: email,
         password: password
-    }).then((user, info) => {
-        if (user) {
-            return function(dispatch) {
-                dispatch({type: SET_USER, user})
-                dispatch({type: LOGGED_IN, isLoggedIn: true})
-            }
-
+    }).then((response) => {
+        if (response.data.user) {
+          var user = response.data.user
+            dispatch({type: SET_USER, user, isLoggedIn: true })
+        }
+        else{
+          console.log(response.data.info)
         }
     }).catch((error) => {
         console.log(error)
     })
+  }
+
 }
 
 export function postSearchToHistory(query, user) {
 
-    if (user) {
-        axios.post('/user/' + user._id + '/history', {query: query}).then((response) => {
-            console.log(response)
-            return (dispatch) => {
-              dispatch(setUser(user))
-            }
-        }).catch((error) => {
-            console.log(error)
-        })
+      if (user) {
+          axios.post('/user/' + user._id + '/history', {query: query})
+          .then((response) => {
+              console.log(response)
+              return {type: NO_USER}
+          }).catch((error) => {
+              console.log(error)
+          })
+
+      }else {
+          return {type: NO_USER}
     }
-    else {
-      return {type: NO_USER}
-    }
+
 }
 
 function setUser(user) {
