@@ -12,7 +12,9 @@ const initialState =
 {
   query: '',
   youtube: {isFetching: false, results: []},
-  wolfram: {isFetching: false, results: []}
+  wolfram: {isFetching: false, results: []},
+  user: false,
+  isLoggedIn: false
 }
 
 const store = configureStore(initialState);

@@ -20,18 +20,18 @@ class Search extends Component {
 
     handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      // this.props.youtubeSearch(this.props.query);
-      // this.props.wolframSearch(this.props.query);
-      // this.props.quizletSearch(this.props.query);
-      this.props.search(this.props.query);
+      this.props.youtubeSearch(this.props.query);
+      this.props.wolframSearch(this.props.query);
+      this.props.quizletSearch(this.props.query);
+      this.props.postSearchToHistory(this.props.user);
     }
   }
 
-    clickHandler = (query) => {
-      // this.props.youtubeSearch(this.props.query);
-      // this.props.wolframSearch(this.props.query);
-      // this.props.quizletSearch(this.props.query);
-      this.props.search(query);
+    clickHandler = () => {
+      this.props.youtubeSearch(this.props.query);
+      this.props.wolframSearch(this.props.query);
+      this.props.quizletSearch(this.props.query);
+      this.props.postSearchToHistory(this.props.query, this.props.user);
     }
 
     render() {
@@ -39,7 +39,7 @@ class Search extends Component {
         return (
             <div id="searchDiv">
                 <Input focus id="searchBar" onKeyPress={this.handleKeyPress} onChange={this.changeHandler} id="sInput" placeholder="Teach me..." value={this.props.query}/>
-                <Button animated id="searchButton" onClick={()=>this.clickHandler(this.props.query)}>
+                <Button animated id="searchButton" onClick={()=>this.clickHandler}>
                   <Button.Content visible>Search</Button.Content>
                   <Button.Content hidden>
                     <Icon name='search'/>
@@ -57,13 +57,15 @@ const mapDispatchToProps = function (dispatch) {
     wolframSearch: actionCreators.wolframSearch,
     quizletSearch: actionCreators.quizletSearch,
     search: actionCreators.search,
-    searchQuery: actionCreators.searchQuery
+    searchQuery: actionCreators.searchQuery,
+    postSearchToHistory: actionCreators.postSearchToHistory
   }, dispatch)
 }
 
 const mapStateToProps = function(state) {
     return {
-      query: state.query
+      query: state.query,
+      user: state.user
     }
 }
 

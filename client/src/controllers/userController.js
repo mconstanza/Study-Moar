@@ -10,11 +10,18 @@ var passport = require('passport');
 
 
 
-router.route('/:id/history').get(function(req, res){
-  res.send('history')
+router.route('/:id/history')
+.get(function(req, res){
+  User.findOne({'_id': req.params.id}, function(err, user) {
+    if (err){
+      return console.error(user);
+    }
+    if (user) {
+      res.send(user.history)
+    }
+  })
 })
-
-router.route('/:id/history').post(function(req, res) {
+.post(function(req, res){
   console.log(req.body);
   User.findOne({'_id': req.params.id}, function(err, user) {
     if (err){

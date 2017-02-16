@@ -6,6 +6,9 @@ export const QUIZLET_REQUEST = 'QUIZLET_REQUEST';
 export const QUIZLET_RECEIVE = 'QUIZLET_RECEIVE';
 export const SEARCH_QUERY = 'SEARCH_QUERY';
 export const ACTIVE_TAB = 'ACTIVE_TAB';
+export const SET_USER = 'SET_USER';
+export const LOGGED_IN = 'LOGGED_IN';
+export const NO_USER = 'NO_USER';
 
 import fetch from 'isomorphic-fetch';
 import axios from 'axios';
@@ -35,26 +38,42 @@ function request(API) {
 
 }
 
-// Searches all APIs at once
-export function search(query, user) {
-  if (user){
-    postSearchToHistory(query, user);
-  }
-  youtubeSearch(query);
-  quizletSearch(query);
-  wolframSearch(query);
+function logIn(email, password) {
+    axios.post('/login', {
+        email: email,
+        password: password
+    }).then((user, info) => {
+        if (user) {
+            return function(dispatch) {
+                dispatch({type: SET_USER, user})
+                dispatch({type: LOGGED_IN, isLoggedIn: true})
+            }
+
+        }
+    }).catch((error) => {
+        console.log(error)
+    })
 }
 
-function postSearchToHistory(query, user) {
-  axios.post('/user/' + user._id +'/history', {
-    query: query
-  })
-  .then((response) => {
-    console.log(response)
-  })
-  .catch((error) => {
-    console.log(error)
-  })
+export function postSearchToHistory(query, user) {
+
+    if (user) {
+        axios.post('/user/' + user._id + '/history', {query: query}).then((response) => {
+            console.log(response)
+            return (dispatch) => {
+              dispatch(setUser(user))
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+    else {
+      return {type: NO_USER}
+    }
+}
+
+function setUser(user) {
+    return {type: SET_USER, user}
 }
 
 // this action removes loading screens and sets results to state
@@ -116,17 +135,15 @@ export function quizletSearch(query) {
             // console.log("Quizlet:", data)
 
             var setIds = data.map((set) => {
-              return set.id
+                return set.id
             })
 
             // console.log("/nSetIds:", setIds)
 
-            quizletSetData(setIds)
-            .then((response) => {
-              var results = response.data;
-              dispatch(receive('quizlet', results))
+            quizletSetData(setIds).then((response) => {
+                var results = response.data;
+                dispatch(receive('quizlet', results))
             })
-
 
         }).catch((error) => {
             console.log(error);
@@ -136,18 +153,16 @@ export function quizletSearch(query) {
 
 function quizletSetData(setIds) {
 
-    var idString ='';
+    var idString = '';
 
-    for (var i =0; i < setIds.length; i++) {
-      if(i < setIds.length -1){
-        idString += setIds[i] + ','
-      }
-      else{
-        idString += setIds[i]
-      }
+    for (var i = 0; i < setIds.length; i++) {
+        if (i < setIds.length - 1) {
+            idString += setIds[i] + ','
+        } else {
+            idString += setIds[i]
+        }
 
     }
-    // console.log("/nIDSTRING:",idString)
 
     return axios.get('/quizlet/sets/' + idString).then((response) => {
         return response
@@ -158,24 +173,24 @@ function quizletSetData(setIds) {
 
 export function wolframSearch(query) {
 
-return dispatch => {
-    dispatch(request('wolfram'))
-    // return the promise of a server fetch
-    return axios.get('/wolfram/' + query)
-    // response is already json, so no need to convert
-        .then((response) => {
-        // Wolfram Alpha keeps relevant results in 'pods'
-        var results = response.data.queryresult.pods
-        if (results == undefined) {
-            results = []
-        }
-        dispatch(receive('wolfram', results))
-    }).catch((error) => {
-        console.log(error);
-    })
-}
+    return dispatch => {
+        dispatch(request('wolfram'))
+        // return the promise of a server fetch
+        return axios.get('/wolfram/' + query)
+        // response is already json, so no need to convert
+            .then((response) => {
+            // Wolfram Alpha keeps relevant results in 'pods'
+            var results = response.data.queryresult.pods
+            if (results == undefined) {
+                results = []
+            }
+            dispatch(receive('wolfram', results))
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
 }
 
 export function searchQuery(query) {
-return {type: SEARCH_QUERY, query}
+    return {type: SEARCH_QUERY, query}
 }

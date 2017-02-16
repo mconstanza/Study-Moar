@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { YOUTUBE_REQUEST, YOUTUBE_RECEIVE, WOLFRAM_REQUEST, WOLFRAM_RECEIVE, QUIZLET_REQUEST, QUIZLET_RECEIVE, SEARCH_QUERY, ACTIVE_TAB } from '../actions/actions';
+import { LOGGED_IN, SET_USER, YOUTUBE_REQUEST, YOUTUBE_RECEIVE, WOLFRAM_REQUEST, WOLFRAM_RECEIVE, QUIZLET_REQUEST, QUIZLET_RECEIVE, SEARCH_QUERY, ACTIVE_TAB } from '../actions/actions';
 
 
 function activeTab(state='Home', action) {
@@ -83,10 +83,27 @@ function searchQuery(state='', action) {
   switch(action.type) {
     case SEARCH_QUERY:
       return action.query
-
     default:
       return state
   }
+}
+
+function setUser(state=false, action) {
+  switch(action.type) {
+    case SET_USER:
+      return action.user
+    default:
+      return state
+  }
+}
+
+function isLoggedIn(state=false, action) {
+  switch(action.type) {
+    case LOGGED_IN:
+      return action.isLoggedIn
+    default:
+      return state
+    }
 }
 
 // This controls the shape of the state object!
@@ -95,7 +112,9 @@ const rootReducer = combineReducers({
   wolfram: wolframSearch,
   quizlet: quizletSearch,
   query: searchQuery,
-  activeTab: activeTab
+  activeTab: activeTab,
+  user: setUser,
+  isLoggedIn: isLoggedIn
 })
 
 export default rootReducer
