@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { YOUTUBE_REQUEST, YOUTUBE_RECEIVE, WOLFRAM_REQUEST, WOLFRAM_RECEIVE, QUIZLET_REQUEST, QUIZLET_RECEIVE, SEARCH_QUERY, ACTIVE_TAB } from '../actions/actions';
 
 
-function activeTab(state='Youtube', action) {
+function activeTab(state='Home', action) {
   switch(action.type) {
     case ACTIVE_TAB:
       return action.tab

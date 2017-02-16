@@ -20,17 +20,18 @@ class Search extends Component {
 
     handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      this.props.youtubeSearch(this.props.query);
-      this.props.wolframSearch(this.props.query);
-      this.props.quizletSearch(this.props.query);
+      // this.props.youtubeSearch(this.props.query);
+      // this.props.wolframSearch(this.props.query);
+      // this.props.quizletSearch(this.props.query);
+      this.props.search(this.props.query);
     }
   }
 
     clickHandler = (query) => {
-      this.props.youtubeSearch(query);
-      this.props.wolframSearch(this.props.query);
-      this.props.quizletSearch(this.props.query);
-
+      // this.props.youtubeSearch(this.props.query);
+      // this.props.wolframSearch(this.props.query);
+      // this.props.quizletSearch(this.props.query);
+      this.props.search(query);
     }
 
     render() {
@@ -55,6 +56,7 @@ const mapDispatchToProps = function (dispatch) {
     youtubeSearch: actionCreators.youtubeSearch,
     wolframSearch: actionCreators.wolframSearch,
     quizletSearch: actionCreators.quizletSearch,
+    search: actionCreators.search,
     searchQuery: actionCreators.searchQuery
   }, dispatch)
 }

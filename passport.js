@@ -1,10 +1,10 @@
 // load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
-var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var mongoose = require('mongoose')
 
 // load up the user model
-var User = require('./client/src/models/user');
+var User = mongoose.model('User');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -17,7 +17,8 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+      console.log("serialize:",user)
+        done(null, user);
     });
 
     // used to deserialize the user
@@ -79,88 +80,89 @@ module.exports = function(passport) {
         });
 
     }));
+    // =========================================================================
+    // LOCAL LOGIN =============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
 
-};
-
-// =========================================================================
-// LOCAL LOGIN =============================================================
-// =========================================================================
-// we are using named strategies since we have one for login and one for signup
-// by default, if there was no name, it would just be called 'local'
-
-passport.use('local-login', new LocalStrategy({
-    // by default, local strategy uses username and password, we will override with email
-    usernameField: 'email',
-    passwordField: 'password',
-    passReqToCallback: true // allows us to pass back the entire request to the callback
-}, function(req, email, password, done) { // callback with email and password from our form
-
-    // find a user whose email is the same as the forms email
-    // we are checking to see if the user trying to login already exists
-    User.findOne({
-        'local.email': email
-    }, function(err, user) {
-        // if there are any errors, return the error before anything else
-        if (err)
-            return done(err);
-
-        // if no user is found, return the message
-        if (!user)
-            return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-
-        // if the user is found but the password is wrong
-        if (!user.validPassword(password))
-            return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-
-        // all is well, return successful user
-        return done(null, user);
-    });
-
-}));
-
-// =========================================================================
-// GOOGLE ==================================================================
-// =========================================================================
-passport.use(new GoogleStrategy({
-
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
-}, function(token, refreshToken, profile, done) {
-
-    // make the code asynchronous
-    // User.findOne won't fire until we have all our data back from Google
-    process.nextTick(function() {
-
-        // try to find the user based on their google id
+    passport.use('local-login', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+    }, function(req, email, password, done) { // callback with email and password from our form
+        console.log('in passport function')
+        // find a user whose email is the same as the forms email
+        // we are checking to see if the user trying to login already exists
         User.findOne({
-            'google.id': profile.id
+            'local.email': email
         }, function(err, user) {
-            if (err)
+            // if there are any errors, return the error before anything else
+            if (err){
                 return done(err);
-
-            if (user) {
-
-                // if a user is found, log them in
-                return done(null, user);
-            } else {
-                // if the user isnt in our database, create a new user
-                var newUser = new User();
-
-                // set all of the relevant information
-                newUser.google.id = profile.id;
-                newUser.google.token = token;
-                newUser.google.name = profile.displayName;
-                newUser.google.email = profile.emails[0].value; // pull the first email
-
-                // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
+            }
+            // if no user is found, return the message
+            else if (!user){
+                return done(null, false, {message: "Sorry, but there is no user with that email."}); // req.flash is the way to set flashdata using connect-flash
+            }
+            // if the user is found but the password is wrong
+            else if (!user.validPassword(password)){
+                return done(null, false, {message: "Sorry, but that password doesn't match the one registered for that email."}); // create the loginMessage and save it to session as flashdata
+            }
+            // all is well, return successful user
+            else {
+                return done(null, user, {message: "Login Successful!"});
             }
         });
-    });
 
-}));
+    }));
+
+    // =========================================================================
+    // GOOGLE ==================================================================
+    // =========================================================================
+    passport.use(new GoogleStrategy({
+
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK
+    }, function(token, refreshToken, profile, done) {
+
+        // make the code asynchronous
+        // User.findOne won't fire until we have all our data back from Google
+        process.nextTick(function() {
+
+            // try to find the user based on their google id
+            User.findOne({
+                'google.id': profile.id
+            }, function(err, user) {
+                if (err)
+                    return done(err);
+
+                if (user) {
+
+                    // if a user is found, log them in
+                    return done(null, user);
+                } else {
+                    // if the user isnt in our database, create a new user
+                    var newUser = new User();
+
+                    // set all of the relevant information
+                    newUser.google.id = profile.id;
+                    newUser.google.token = token;
+                    newUser.google.name = profile.displayName;
+                    newUser.google.email = profile.emails[0].value; // pull the first email
+
+                    // save the user
+                    newUser.save(function(err) {
+                        if (err)
+                            throw err;
+                        return done(null, newUser);
+                    });
+                }
+            });
+        });
+
+    }));
+
+};

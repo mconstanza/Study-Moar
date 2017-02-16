@@ -3,10 +3,10 @@ var express = require('express')
 var app = express()
 var PORT = process.env.PORT || 3001;
 
-var request = require('request');
 var wolfram = require('./client/src/controllers/wolframController');
 var quizlet = require('./client/src/controllers/quizletController');
 
+var auth = require('./client/src/controllers/authController');
 var user = require('./client/src/controllers/userController');
 
 var bodyParser = require("body-parser");
@@ -32,9 +32,14 @@ app.use(bodyParser.json());
 app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
 require('./passport')(passport); // pass passport for configuration
+var MongoStore = require('connect-mongo')(session);
 
 // required for passport
-app.use(session({ secret: 'spoon' })); // session secret
+app.use(session({ secret: 'spoon',
+                  store: new MongoStore({mongooseConnection: mongoose.connection}),
+                  resave: false,
+                  saveUninitialized: false
+                  })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -47,6 +52,9 @@ app.use('/wolfram', wolfram);
 app.use('/quizlet', quizlet);
 
 app.use('/user', user);
+
+app.use('/', auth);
+
 
 app.get('/', function(req, res) {
 	res.sendFile('index.html');

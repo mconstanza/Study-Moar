@@ -35,6 +35,28 @@ function request(API) {
 
 }
 
+// Searches all APIs at once
+export function search(query, user) {
+  if (user){
+    postSearchToHistory(query, user);
+  }
+  youtubeSearch(query);
+  quizletSearch(query);
+  wolframSearch(query);
+}
+
+function postSearchToHistory(query, user) {
+  axios.post('/user/' + user._id +'/history', {
+    query: query
+  })
+  .then((response) => {
+    console.log(response)
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
 // this action removes loading screens and sets results to state
 
 function receive(API, results) {
