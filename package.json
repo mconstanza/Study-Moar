@@ -23,7 +23,7 @@
     "fs": "0.0.2",
     "mongodb": "^2.2.20",
     "mongoose": "^4.7.6",
-    "morgan": "^1.7.0",
+    "morgan": "^1.9.1",
     "passport": "^0.3.2",
     "passport-google": "^0.3.0",
     "passport-google-oauth": "^1.0.0",
